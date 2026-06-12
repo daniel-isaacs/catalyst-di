@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.8.0
+
+### Minor Changes
+
+- [#3024](https://github.com/bigcommerce/catalyst/pull/3024) [`3cec674`](https://github.com/bigcommerce/catalyst/commit/3cec674f8fcbcf563e9c2d8015c35d96f4cd56e0) Thanks [@mfaris9](https://github.com/mfaris9)! - Honor the merchant's Tax Display setting (`Inc.`, `Ex.`, or `Both`) from the BigCommerce control panel across PDP, PLP, search, compare, and home. When set to `Both`, prices render stacked with `(Inc. Tax)` and `(Ex. Tax)` labels, including sale strike-throughs per line.
+
+  ## Migration
+
+  For forks that can't rebase cleanly: pricing was refactored end-to-end to support inc/ex tax variants and a `Both` mode (`PricingFragment`, `pricesTransformer`, `Price` types, page-data settings queries, analytics helpers). See PR #3024 for the full diff.
+
+- [#3015](https://github.com/bigcommerce/catalyst/pull/3015) [`15e365a`](https://github.com/bigcommerce/catalyst/commit/15e365aeeb36a44901769b7831e635e9e0e7bcc1) Thanks [@mfaris9](https://github.com/mfaris9)! - Consume merchant-configured per-locale URL subfolders from the BigCommerce Storefront GraphQL API (`Locale.path`). The locale that sits at the bare root URL (`/`) is derived from the CP configuration: if the default locale has no path, it sits at root; otherwise, if exactly one non-default locale has no path, that one sits at root; otherwise every locale gets a prefix. Locales with a path use it; locales without a path fall back to their locale code.
+
+### Patch Changes
+
+- [#3031](https://github.com/bigcommerce/catalyst/pull/3031) [`874e332`](https://github.com/bigcommerce/catalyst/commit/874e332b73b8a36c2d93ae4ec99d5dc00d7fb3e1) Thanks [@Tharaae](https://github.com/Tharaae)! - Display backorder information for variants on PDP.
+
+- [#3033](https://github.com/bigcommerce/catalyst/pull/3033) [`8bc379d`](https://github.com/bigcommerce/catalyst/commit/8bc379df6fe0c843ba82e901e31e245f506d0cf3) Thanks [@jorgemoya](https://github.com/jorgemoya)! - Fix broken images in WYSIWYG content (web pages, blog posts, product description and warranty). Images uploaded through the Control Panel editor are stored as store-root-relative WebDAV paths (`/content/...` and `/product_images/...`) that 404 on the headless storefront domain; they are now rewritten to absolute BigCommerce CDN URLs.
+
+- [#3035](https://github.com/bigcommerce/catalyst/pull/3035) [`b4215f0`](https://github.com/bigcommerce/catalyst/commit/b4215f06cc4fbda8694835c589c84b362fb1a8fc) Thanks [@jorgemoya](https://github.com/jorgemoya)! - Scope the consent manager cookie (`c15t-consent`) to the current host instead of the top-level domain. Previously `crossSubdomain: true` caused the cookie to be set on the root domain (e.g. `.example.com`) for stores running on a sub-domain, so it appeared on both the root domain and the sub-domain. Removing it makes the cookie host-only, so it now exists only on the sub-domain the store runs on.
+
 ## 1.7.0
 
 ### Minor Changes
